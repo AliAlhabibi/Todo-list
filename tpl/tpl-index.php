@@ -124,8 +124,12 @@
           <div class="circle-2"></div>
         </div>
         <div class="userinfo">
-        <?= getDayOrNight() ?> بخیر، امین
-          
+          <span>
+            <?= getDayOrNight() ?> بخیر، <?= getUserData($_SESSION['loginuser'])->name ?>
+          </span>
+          <a href="<?= goUrl('?logout') ?>"> 
+            <i class="fa-solid fa-sign-out feather" title="خارج شدن" style="float:left ;"></i>
+          </a>
         </div>
       </div>
 

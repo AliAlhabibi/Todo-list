@@ -18,12 +18,14 @@ function goUrl($addr){
 }
 function getDayOrNight(){
         date_default_timezone_set('Asia/Tehran');
-         date_default_timezone_get();
-            if(date_default_timezone_get() > 18 || date_default_timezone_get() < 6)
+            if(date('H') > 18 || date('H') < 6)
             {
                 return 'شب';
 
             }else{
                 return 'روز';
             }
+}
+function sanitizeData($data){
+    return htmlspecialchars(trim(strtolower($data)));
 }

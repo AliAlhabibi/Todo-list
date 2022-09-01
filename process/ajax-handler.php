@@ -36,10 +36,25 @@ switch ($_POST['action']) {
         }
         else
         {
-            echo 'نام پوشه باید حداقل 3 کاراکتر باشد';
+            echo 'نام فعالیت باید حداقل 3 کاراکتر باشد';
             die();
         }
          break;
+
+    case "logincheck":
+        if(isset($_POST['lusername']) && !empty($_POST['lusername']) && isset($_POST['lpassword']) && !empty($_POST['lpassword']) ){
+        //echo checkLogin($username,$lpassword) ? true : false;
+        echo true;
+        }
+        break;
+
+    case "register":
+            if(isset($_POST['rusername']) && !empty($_POST['rusername']) && isset($_POST['rpassword']) && !empty($_POST['rpassword']) && isset($_POST['remail']) && !empty($_POST['remail']) ){
+
+                register($_POST['rusername'],$_POST['remail'],$_POST['rpassword']);
+                echo 1;
+            }
+            break;    
     default:
         diePage('invalid action');
 }

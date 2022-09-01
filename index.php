@@ -6,7 +6,13 @@ include "bootstrap/init.php";
 //     $deletedcount = deleteFolder($_GET['delete_folder']);
 //     //echo $deletedcount."folder deleted!";
 // }
+if(isset($_GET['logout'])){
+    logout();
+}
 
+if(!isLoggedIn()){
+    header("location: ". BASE_URL . "auth.php");
+}
 
 $folders= getFolders();
 $tasks = getTasks();

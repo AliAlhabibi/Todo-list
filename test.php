@@ -1,4 +1,7 @@
-<?php include 'bootstrap/init.php' ?>
+<?php include 'bootstrap/init.php';
+
+print_r($_POST);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,11 +28,13 @@
     // $str = str_shuffle('abcdefghijklmnopqrstuvwxyz0123456789');
     // $str = substr($str,0,4);
      
-    // echo $str.'<br>';              
+    // echo $str.'<br>';        
+    
+    print_r($_SESSION);
+
    
    ?>
    
-    <button id="btn">add</button>
 
         <ul class="action-list">
             <?php foreach ($folders as $folder) : ?>
@@ -40,6 +45,15 @@
               </li>
             <?php endforeach; ?>
         </ul>
+    
+    <form action="<?= BASE_URL .'test.php'?>" method="POST">
+
+                <input type="text"  name="name">
+                <input type="submit" value="send">
+    
+    </form>
+
+
 
 
 
