@@ -12,15 +12,24 @@ if(isset($_GET['logout'])){
 
 if(!isLoggedIn()){
     header("location: ". BASE_URL . "auth.php");
+
 }
+if($_SERVER['REQUEST_URI'] ==  "/taskmanager-project/"){
+header("location: ". goUrl("?today"));
+}
+
+
 
 $folders= getFolders();
 $tasks = getTasks();
 
 //  echo "<pre>";
-//  print_r($tasks);
+// print_r($_SERVER['REQUEST_URI']);
 //  echo "</pre>";
 
 
 include "tpl/tpl-index.php";
+
+
+
 

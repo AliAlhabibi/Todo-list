@@ -160,12 +160,12 @@
                 <span> انجام شده</span>
               </a>
             </li>
-            <li class="menu-item">
+         <!--   <li class="menu-item">
               <a style="text-decoration:none; color:black;" href="<?= goUrl("?canceled") ?>">
                 <i class="fa-regular fa-calendar-minus feather"></i>
                 <span> لغو شده </span>
               </a>
-            </li>
+            </li> -->
         </ul>
         <ul class="folders-list">
           <p style="padding: 10px; font-size:15px; color:darkgray; margin-bottom:0;">فهرست های من</p>
@@ -196,7 +196,7 @@
     <!-- left bar ends -->
     <!-- page content starts -->
     <div class="page-content">
-      <div class="header">فعالیت‌ها‌‌ی</div>
+      <div class="header"><? // ?></div>
 
       <!-- contnet categories starts
 

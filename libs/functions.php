@@ -39,8 +39,13 @@ function addFolder($foldername){
 
 function getTasks(){
     global $conn;
+    $folder = $_GET['folder_id'] ?? null;
+    $foldercondition = '';
+    if(isset($folder) & is_numeric($folder)){
+        $foldercondition = "AND folder_id=$folder";
+    }
     $current_user_id = getUserData($_SESSION['loginuser'])->id;
-    $sql = "select * from tasks where user_id=$current_user_id";
+    $sql = "select * from tasks where user_id=$current_user_id $foldercondition";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(pdo::FETCH_OBJ);
