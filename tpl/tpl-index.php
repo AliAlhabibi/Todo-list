@@ -26,10 +26,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">افزودن پوشه</h5>
+          <h5 class="modal-title" id="exampleModalLabel">افزودن فهرست</h5>
         </div>
         <div class="modal-body">
-          <input type="text" class="form-control" id="addfolderinput" placeholder="نام پوشه را اینجا وارد کنید..">
+          <input type="text" class="form-control" id="addfolderinput" placeholder="نام فهرست را اینجا وارد کنید..">
           <span  id="addfolderresultmsg"></span>
         </div>
         <div class="modal-footer">
@@ -45,7 +45,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">پوشه‌های من</h5>
+          <h5 class="modal-title" id="exampleModalLabel">فهرست‌های من</h5>
         </div>
         <div class="modal-body">
 
@@ -182,11 +182,11 @@
         <ul class="category-list">
           <li class="item2">
             <i class="fa-solid fa-plus"></i>
-            <span data-bs-toggle="modal" data-bs-target="#exampleModal">افزودن پوشه</span>
+            <span data-bs-toggle="modal" data-bs-target="#exampleModal">افزودن فهرست</span>
           </li>
           <li class="item2">
             <i class="fa-solid fa-gear"></i>
-            <span data-bs-toggle="modal" data-bs-target="#exampleModal2">مدیریت پوشه‌ها</span>
+            <span data-bs-toggle="modal" data-bs-target="#exampleModal2">مدیریت فهرست‌ها</span>
           </li>
         </ul>
       </div>
@@ -226,9 +226,10 @@
         <?php if(!empty($tasks)) : ?>
           <?php foreach ($tasks as $task) : ?>
             <div class="task">
-              <!-- <input class="task-item form-check-input" name="task" type="checkbox" id="item-1" checked disabled /> -->  
               <span class="label-text"> <?= $task->title ?> </span>
-              <span class="tag waiting"><?php echo $task->deadline !== '0000-00-00 00:00:00' ?  substr($task->deadline,0,10) : 'بدون محدودیت زمانی'; ?></span>
+              <span style="font-size: 12px; color: #fcfcfc; margin-right:20px"> <?= $task->description ?> </span>
+              <input class="form-check-input" style="float: left; margin-right:10px" name="task" type="checkbox" id="item-1" checked disabled />   
+              <span class="tag waiting" style="float: left;"><?php echo $task->deadline !== '0000-00-00 00:00:00' ?  substr($task->deadline,0,10) : 'بدون محدودیت زمانی'; ?></span>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
@@ -240,7 +241,7 @@
       </div>
       <!-- tasks wrapper ends -->
       <div class="addtaskbox" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-              <!-- <input class="task-item form-check-input" name="task" type="checkbox" id="item-1" checked disabled /> -->  
+              <!-- <input class="form-check-input" name="task" type="checkbox" id="item-1" checked disabled /> -->  
               <i class="fa-solid fa-plus"></i>
               <span class="label-text"> افزودن فعالیت </span>
             </div>
@@ -363,7 +364,7 @@
             if(e == 1){
               $('#addfolderresultmsg').html('پوشه ایجاد شد!');
               $('#addfolderresultmsg').css('color','green');
-              $('<li class="item"> <a style="text-decoration:none; color:black;" href="#"> <i class="fa-regular fa-folder feather"></i> <span> '+ input.val() +' </span> </a> </li>').appendTo('.action-list');
+             // $('<li class="item"> <a style="text-decoration:none; color:black;" href="#"> <i class="fa-regular fa-folder feather"></i> <span> '+ input.val() +' </span> </a> </li>').appendTo('.action-list');
             }
             else{
               $('#addfolderresultmsg').html(e);
@@ -400,7 +401,7 @@
           },
           success: function(e) {
             if(e == 1){
-              $('#addtaskresultmsg').html('پوشه ایجاد شد!');
+              $('#addtaskresultmsg').html('فعالیت ایجاد شد!');
               $('#addtaskresultmsg').css('color','green');
              // $('<li class="item"> <a style="text-decoration:none; color:black;" href="#"> <i class="fa-regular fa-folder feather"></i> <span> '+ input.val() +' </span> </a> </li>').appendTo('.action-list');
             }
