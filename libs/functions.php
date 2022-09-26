@@ -18,13 +18,20 @@ function deleteFolder($folder_id){
 
 }
 
-function getFolders(){
+function getFolders($folder){
     global $conn;
+    if(is_numeric($folder)){
+        $foldercondition = "AND id=$folder";
+    }elseif($folder = 'A'){
+        $foldercondition = '';
+    }
+
     $current_user_id = getUserData($_SESSION['loginuser'])->id;
-    $sql = "select * from folders where user_id=$current_user_id";
+    $sql = "select * from folders where user_id=$current_user_id $foldercondition";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(pdo::FETCH_OBJ);
+
 }
 
 function addFolder($foldername){
@@ -36,16 +43,44 @@ function addFolder($foldername){
     return $stmt->fetchAll(pdo::FETCH_OBJ);
 
 }
-
-function getTasks(){
+// function getActiveFolder(){
+//     $folder = $_GET;
+//     $arr = ['today','important','done','active'];
+//     if(isset($_GET['fid']) && is_numeric($_GET['fid'])){
+//         return $_GET['fid'];
+        
+//     }elseif(array_key_exists($_GET,$arr)){
+//         return $_GET;
+        
+//     }else{
+//         return null;
+//     }
+// }
+function getTasks($status){
     global $conn;
-    $folder = $_GET['folder_id'] ?? null;
-    $foldercondition = '';
-    if(isset($folder) & is_numeric($folder)){
-        $foldercondition = "AND folder_id=$folder";
+    if($status == 'active'){
+        $condition = "AND isdone = 0";
     }
+    elseif($status == 'important'){
+        $condition = "AND isimportant = 1 AND isdone = 0";
+    }
+    elseif($status == 'done'){
+        $condition = "AND isdone = 1";
+    }
+    elseif($status == 'folder'){
+        if(hasAccess($_GET['fid'],'f')){
+            $folder = $_GET['fid'];
+            $condition = "AND folder_id = $folder";
+            
+        }else{
+        diePage('error: invalid folder');
+        }
+    }else{
+        diePage('error: invalid status');
+    }
+    
     $current_user_id = getUserData($_SESSION['loginuser'])->id;
-    $sql = "select * from tasks where user_id=$current_user_id $foldercondition";
+    $sql = "select * from tasks where user_id=$current_user_id $condition";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(pdo::FETCH_OBJ);
@@ -58,6 +93,17 @@ function addTask($name,$desc,$folder,$deadline,$isimportant){
     $stmt = $conn->prepare($sql);
     $stmt->execute([':title'=>$name,':description'=>$desc,':user_id'=>$current_user_id,':folder_id'=>$folder,':deadline'=>$deadline,':isimportant'=>$isimportant]);
     return $stmt->fetchAll(pdo::FETCH_OBJ);
+}
+function toggletask($tid){
+    if(hasAccess($tid,'t')){
+    global $conn;
+    $sql = "update tasks set isdone = 1 - isdone where id=$tid;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(pdo::FETCH_OBJ);
+    die;
+    }
+    diePage('error');
 }
 
 function isLoggedIn(){
@@ -94,4 +140,24 @@ function isEmailRegistered($email) : bool{
 
 function logout(){
     unset($_SESSION['loginuser']);
+}
+function hasAccess($id,$operation){
+    global $conn;
+    $current_user_id = getUserData($_SESSION['loginuser'])->id;
+    if($operation == 't' && isset($id) && is_numeric($id)){
+        $sql = "select * from tasks where user_id='$current_user_id' and id = $id limit 1";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(); 
+        $record = $stmt->fetchAll(pdo::FETCH_OBJ);
+        return $record? true : false;
+        die;
+    }
+    if($operation == 'f'){
+        $sql = "select * from folders where user_id='$current_user_id' and id = $id limit 1";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(); 
+        $record = $stmt->fetchAll(pdo::FETCH_OBJ);
+        return $record? true : false;
+        die;
+    }
 }

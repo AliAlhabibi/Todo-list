@@ -55,6 +55,10 @@ switch ($_POST['action']) {
                 echo 1;
             }
             break;    
+    case "toggletask":
+                toggleTask($_POST['taskid']);
+                //echo 'successful!';
+                break;
     default:
         diePage('invalid action');
 }

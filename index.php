@@ -16,22 +16,26 @@ if(!isLoggedIn()){
 
 }
 // redirect to today page everytime when page is opened 
-if($_SERVER['REQUEST_URI'] ==  "/taskmanager-project/"){
-header("location: ". goUrl("?today"));
-}
+// if($_SERVER['REQUEST_URI'] ==  "/taskmanager-project/"){
+// header("location: ". goUrl("?today"));
+// }
 
 
 
-$folders= getFolders();
-$tasks = getTasks();
+$folders= getFolders('A');
+$tasks = getTasks('active');
 
+$pagetitle = "در جریان";
 //  echo "<pre>";
 // print_r($_SERVER);
 //  echo "</pre>";
 //echo verta();
-echo verta()->formatJalaliDatetime();
-echo '<br>';
-date('m/d/Y h:i:s');
+// echo verta()->formatJalaliDatetime();
+// echo '<br>';
+// date('m/d/Y h:i:s');
+//print_r($_GET);
+//getActiveFolder();
+
 
 include "tpl/tpl-index.php";
 

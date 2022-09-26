@@ -1,4 +1,7 @@
-
+@font-face {
+  font-family: 'iransans';
+  src: url(../font/IRANSans_FaNum_.ttf);
+}
 * {
   box-sizing: border-box;
   outline: none;
@@ -176,17 +179,16 @@ ul li a {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 0px 20px 0 20px;
+  padding: 0 10px;
   /*background-image: url(../images/bg.png); */
   background-blend-mode:lighten;
 }
 
-.page-content .header {
-  font-size: 26px;
-  color: var(--main-color);
-  padding: 50px 40px 25px 10px;
+.header{
   background-color: #e9e9e9;
   color: #1269db;
+  font-size: 20px;
+  padding: 20px 30px;
   position: relative;
 }
 
@@ -234,15 +236,16 @@ ul li a {
   
   justify-content: space-between;
   position: relative;
-  margin-bottom: 6px;
-  padding: 10px 20px;
+  margin-bottom: 7px;
+  padding: 15px 20px;
   color: var(--task-color);
   font-size: 15px;
   /* font-weight: 500;*/
   background-color: #f0fffe;
   border-radius: 5px;
   border-right: 3px solid #009e90;
-  cursor: pointer;
+  cursor: default;
+  overflow: hidden;
 }
 .task:hover {
   /* transform: translatex(2px); */
@@ -253,9 +256,6 @@ ul li a {
   cursor: pointer;
 }
 
-.notaskwrapper{
-  /*background-color: #bbbbbe;*/
-}
 
 .notaskhere{
   width: 250px;
@@ -293,10 +293,33 @@ ul li a {
   transition: 0.5s;
 
 }
-/* label .label-text {
-  position: relative;
+.addfolder{
+  background-color: #353536;
+  width: 100%;
+  color: #daffe5;
+  position:absolute;
+  right: 0;
+  margin-top: 20px;
+  bottom: 10px;
+  padding: 15px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  border-right: 3px solid #009e90;
+  cursor: pointer;
 }
-label .label-text:before {
+.addfolder:hover{
+  /*box-shadow: 5px 5px 5px #ddd;*/
+  background-color: #6d6d6d;
+  padding-right:25px;
+  color: #06ed72;
+  transition: 0.5s;
+
+}
+  .label-text {
+  margin-right: 0px;
+  /* color: black; */
+}
+/*label .label-text:before {
   content: '';
   position: absolute;
   width: 14px;
@@ -364,7 +387,7 @@ label .label-text:before {
   flex-direction: column;
 }
 
-.right-bar .header {
+.right-bar  {
   font-size: 20px;
   color: var(--main-text-color);
   margin-left: 30px;
@@ -474,6 +497,10 @@ body,
   .tasks-wrapper {
     height: auto;
   }
+  .addfolder {
+    position:relative;
+
+  }
 }
 @media screen and (max-width: 520px) {
   .page-content {
@@ -485,5 +512,9 @@ body,
   .category-list {
     position:relative;
     margin: 30px 9px;
+  }
+  .addfolder {
+    position:relative;
+
   }
 }

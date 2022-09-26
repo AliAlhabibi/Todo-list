@@ -4,6 +4,6 @@ $database_config = (object)[
     'host' => 'localhost',
     'user' => 'root',
     'pass' => '',
-    'db' => 'task_manager_db'
+    'db' => 'todolist_db'
 ];
 

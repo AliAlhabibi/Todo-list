@@ -22,7 +22,7 @@
         -->
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -38,19 +38,30 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">افزودن فهرست</h5>
+        </div>
+        <div class="modal-body row">
+          
+            <input type="text" class="form-control col" id="addfolderinput" placeholder="نام فهرست را اینجا وارد کنید..">
+            <button type="button" class="btn btn-success col-3" id="addfolderbtn">افزودن</button>
+            <span  id="addfolderresultmsg"></span>
+
+          </div>
+        <!--  -->
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">فهرست‌های من</h5>
         </div>
         <div class="modal-body">
 
         
-          <ul class="action-list">
+          <ul id="action-list">
             <?php foreach ($folders as $folder) : ?>
               <li onclick="removeFol(this)" data-folder-id="<?= $folder->id ?>" class="item">
                 <i class="fa-regular fa-folder feather"></i>
@@ -127,8 +138,13 @@
           <span>
             <?= getDayOrNight() ?> بخیر، <?= getUserData($_SESSION['loginuser'])->name ?>
           </span>
+         
           <a href="<?= goUrl('?logout') ?>"> 
             <i class="fa-solid fa-sign-out feather" title="خارج شدن" style="float:left ;"></i>
+          </a>  
+          <span style="float:left;  visibility: hidden; ">1</span>
+          <a href="<?= goUrl('dash.php') ?>"> 
+            <i class="fa-solid fa-user feather" title="حساب کاربری" style="float:left ;"></i>
           </a>
         </div>
       </div>
@@ -137,25 +153,25 @@
       <div class="left-content">
         <ul class="menu-list">
             <li class="menu-item">
-              <a style="text-decoration:none; color:black;" href="<?= goUrl("?today") ?>">
+              <a style="text-decoration:none; color:black;" href="<?= goUrl("index.php") ?>">
                 <i class="fa-solid fa-calendar-day feather"></i>
-                <span> امروز </span>
+                <span> همه </span>
               </a>
             </li>
             <li class="menu-item">
-              <a style="text-decoration:none; color:black;" href="<?= goUrl("?important") ?>">
+              <a style="text-decoration:none; color:black;" href="<?= goUrl("important.php") ?>">
                 <i class="fa-solid fa-star feather"></i>
                 <span> مهم</span>
               </a>
             </li>
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a style="text-decoration:none; color:black;" href="<?= goUrl("?active") ?>">
                 <i class="fa-solid fa-bars-staggered feather"></i>
                 <span> در جریان </span>
               </a>
-            </li>
+            </li> -->
             <li class="menu-item">
-              <a style="text-decoration:none; color:black;" href="<?= goUrl("?done") ?>">
+              <a style="text-decoration:none; color:black;" href="<?= goUrl("done.php") ?>">
                 <i class="fa-solid fa-circle-check feather"></i>
                 <span> انجام شده</span>
               </a>
@@ -171,7 +187,7 @@
           <p style="padding: 10px; font-size:15px; color:darkgray; margin-bottom:0;">فهرست های من</p>
           <?php foreach ($folders as $folder) : ?>
             <li class="item">
-              <a style="text-decoration:none; color:black;" href="?folder_id=<?= $folder->id ?>">
+              <a style="text-decoration:none; color:black;" href="folder.php?fid=<?= $folder->id ?>">
                 <i class="fa-solid fa-folder feather"></i>
                 <span> <?= $folder->name ?> </span>
               </a>
@@ -179,7 +195,7 @@
           <?php endforeach; ?>
         </ul>
 
-        <ul class="category-list">
+        <!-- <ul class="category-list">
           <li class="item2">
             <i class="fa-solid fa-plus"></i>
             <span data-bs-toggle="modal" data-bs-target="#exampleModal">افزودن فهرست</span>
@@ -188,15 +204,23 @@
             <i class="fa-solid fa-gear"></i>
             <span data-bs-toggle="modal" data-bs-target="#exampleModal2">مدیریت فهرست‌ها</span>
           </li>
-        </ul>
+        </ul> -->
+        
+        <div class="addfolder" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+          <!-- <input class="form-check-input" name="task" type="checkbox" id="item-1" checked disabled /> -->  
+          <i class="fa-solid fa-gear"></i>
+          <span class="label-text">مدیریت فهرست‌ها</span>
+        </div>
+
       </div>
+      
       <!-- left content ends -->
     </div>
     <!--  -->
     <!-- left bar ends -->
     <!-- page content starts -->
     <div class="page-content">
-      <div class="header"><? // ?></div>
+      <div class="header">فعالیت های <?php print_r($pagetitle) ?></div>
 
       <!-- contnet categories starts
 
@@ -226,10 +250,11 @@
         <?php if(!empty($tasks)) : ?>
           <?php foreach ($tasks as $task) : ?>
             <div class="task">
+              <?php if($task->isimportant): ?><i style="font-size: 45px; position:absolute; right:0; margin-top:-12px; opacity:15%; color:#89202a " class="fa-solid fa-star"></i><?php endif; ?>
               <span class="label-text"> <?= $task->title ?> </span>
-              <span style="font-size: 12px; color: #fcfcfc; margin-right:20px"> <?= $task->description ?> </span>
-              <input class="form-check-input" style="float: left; margin-right:10px" name="task" type="checkbox" id="item-1" checked disabled />   
-              <span class="tag waiting" style="float: left;"><?php echo $task->deadline !== '0000-00-00 00:00:00' ?  substr($task->deadline,0,10) : 'بدون محدودیت زمانی'; ?></span>
+              <span style="font-size: 12px; color: #154c79; margin-right:20px"> <?= $task->description ?> </span>
+              <input class="form-check-input" style="float: left; margin-right:10px;   cursor: pointer;" name="task" type="checkbox" id="item-1" checked onclick="toggletask(this)" data-task-id="<?= $task->id ?>" />   
+              <?php if(!empty($task->deadline)) : ?><span class="tag waiting" style="float: left;"><?= substr($task->deadline,0,10) ?></span><?php endif; ?>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
@@ -241,10 +266,10 @@
       </div>
       <!-- tasks wrapper ends -->
       <div class="addtaskbox" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-              <!-- <input class="form-check-input" name="task" type="checkbox" id="item-1" checked disabled /> -->  
-              <i class="fa-solid fa-plus"></i>
-              <span class="label-text"> افزودن فعالیت </span>
-            </div>
+          <!-- <input class="form-check-input" name="task" type="checkbox" id="item-1" checked disabled /> -->  
+          <i class="fa-solid fa-plus"></i>
+          <span class="label-text"> افزودن فعالیت </span>
+      </div>
     </div>
     <!--  -->
     <!-- page content ends -->
@@ -329,8 +354,6 @@
       </div>
       -->
     <!-- right bar ends -->
-
-
   </div>
 
 
@@ -345,6 +368,20 @@
                     data : {action: 'deletewithpost', folderid : fid},
                     success : function(e){
                         location.reload();
+                    }
+                });
+            }
+    
+            function toggletask(element)
+            {
+                var tid = element.dataset.taskId;
+                $.ajax({
+                    url : 'process/ajax-handler.php',
+                    method : 'POST',
+                    data : {action: 'toggletask', taskid : tid},
+                    success : function(e){
+                        //location.reload();
+                        $(element).parent('.task').fadeOut(500);
                     }
                 });
             }
@@ -364,7 +401,11 @@
             if(e == 1){
               $('#addfolderresultmsg').html('پوشه ایجاد شد!');
               $('#addfolderresultmsg').css('color','green');
-             // $('<li class="item"> <a style="text-decoration:none; color:black;" href="#"> <i class="fa-regular fa-folder feather"></i> <span> '+ input.val() +' </span> </a> </li>').appendTo('.action-list');
+              //$('<li class="item"> <a style="text-decoration:none; color:black;" href="#"> <i class="fa-regular fa-folder feather"></i> <span> '+ input.val() +' </span> </a> </li>').appendTo('.action-list');
+              //$('<li>hi</li>').appendTo("#action-list");
+              //$("#action-list").append('<li>123</li>');
+              
+              setTimeout(function(){ location.reload(); }, 1000);
             }
             else{
               $('#addfolderresultmsg').html(e);
@@ -404,6 +445,7 @@
               $('#addtaskresultmsg').html('فعالیت ایجاد شد!');
               $('#addtaskresultmsg').css('color','green');
              // $('<li class="item"> <a style="text-decoration:none; color:black;" href="#"> <i class="fa-regular fa-folder feather"></i> <span> '+ input.val() +' </span> </a> </li>').appendTo('.action-list');
+             setTimeout(function(){ location.reload(); }, 1000);
             }
             else{
               $('#addtaskresultmsg').html(e);
