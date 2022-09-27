@@ -18,7 +18,7 @@ switch ($_POST['action']) {
         addFolder($_POST['foldername']);
         echo 1;
         }else{
-            echo 'نام پوشه باید حداقل 3 کاراکتر باشد';
+            echo 'نام پوشه باید حداقل 3 کاراکتر باشد.';
             die();
         }
         break;
@@ -36,7 +36,7 @@ switch ($_POST['action']) {
         }
         else
         {
-            echo 'نام فعالیت باید حداقل 3 کاراکتر باشد';
+            echo 'نام فعالیت باید حداقل 3 کاراکتر باشد.';
             die();
         }
          break;

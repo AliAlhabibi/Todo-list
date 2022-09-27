@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تنظیمات کاربری - <?= getUserData($_SESSION['loginuser'])->name ?></title>
+  <title>تنظیمات حساب - <?= getUserData($_SESSION['loginuser'])->name ?></title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
@@ -86,25 +86,6 @@
       <div class="header">تنظیمات حساب کاربری</div>
 
       <!--  contnet categories starts -->
-      <!-- 
-      <div class="content-categories">
-        <div class="label-wrapper">
-          <input class="nav-item" name="nav" type="radio" id="opt-1" />
-          <label class="category" for="opt-1">All</label>
-        </div>
-        <div class="label-wrapper">
-          <input class="nav-item" name="nav" type="radio" id="opt-2" checked />
-          <label class="category" for="opt-2">Important</label>
-        </div>
-        <div class="label-wrapper">
-          <input class="nav-item" name="nav" type="radio" id="opt-3" />
-          <label class="category" for="opt-3">Notes</label>
-        </div>
-        <div class="label-wrapper">
-          <input class="nav-item" name="nav" type="radio" id="opt-4" />
-          <label class="category" for="opt-4">Links</label>
-        </div>
-      </div> -->
         
         <!-- contemt categories ends --> 
 
@@ -115,7 +96,7 @@
         <div class="col-md">
           <h5 class="form-label mb-3">تغییر نام</h5>
           <form action="<?php BASE_URL .'dash.php'?>" method="POST">
-          <input type="text" class="form-control  mb-3" value="<?= getUserData($_SESSION['loginuser'])->name?>" name="newname" aria-describedby="button-addon1">
+          <input type="text" class="form-control  mb-3" autocomplete="off" value="<?= getUserData($_SESSION['loginuser'])->name?>" name="newname" aria-describedby="button-addon1">
           <button class="btn btn-outline-secondary form-control  mb-3" type="submit" id="button-addon1" name="updatename">بروزرسانی</button>
           </form> 
         </div>

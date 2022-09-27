@@ -11,8 +11,8 @@ if(!isLoggedIn()){
 
 if(isset($_POST['updatepass']))
 {
-    if(sanitizedata($_POST['newpass']) !== sanitizedata($_POST['oldpass'])){
-        if(password_verify(sanitizeData($_POST['oldpass']),getUserData($_SESSION['loginuser'])->password)){
+    if(password_verify(sanitizeData($_POST['oldpass']),getUserData($_SESSION['loginuser'])->password)    ){
+        if(sanitizedata($_POST['newpass']) !== sanitizedata($_POST['oldpass'])){
            
             updatePassword(sanitizedata($_POST['newpass']));
             $message = 'رمز شما با موفقیت تغییر یافت!';
@@ -20,11 +20,11 @@ if(isset($_POST['updatepass']))
 
 
         }else{
-            $message = 'گذرواژه فعلی اشتباه است.';
+            $message = 'پسورد جدید باید متفاوت باشد!';
             $stat = 0;
         }
     }else{
-        $message = 'پسورد جدید باید متفاوت باشد!';
+        $message = 'گذرواژه فعلی اشتباه است.';
         $stat = 0;
     }
 }

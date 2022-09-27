@@ -5,15 +5,16 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>پروفایل کاربری - <?= getUserData($_SESSION['loginuser'])->name ?></title>
+  <title>حساب کاربری - <?= getUserData($_SESSION['loginuser'])->name ?></title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
-
+  <link type="text/css" rel="stylesheet" href="assets/css/jalalidatepicker.min.css" />
 </head>
 
 <body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="assets/js/jalalidatepicker.min.js"></script>
 
   <!-- Button trigger modal 
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -43,24 +44,20 @@
   <!-- Modal -->
   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="padding: 0px 20px;">
       <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">افزودن فهرست</h5>
         </div>
         <div class="modal-body row">
           
-            <input type="text" class="form-control col" id="addfolderinput" placeholder="نام فهرست را اینجا وارد کنید..">
-            <button type="button" class="btn btn-success col-3" id="addfolderbtn">افزودن</button>
+            <input type="text" class="form-control col" id="addfolderinput" autocomplete="off"  placeholder="نام فهرست. مثال: شخصی">
+            <button type="button" class="btn btn-success col-3" id="addfolderbtn">ایجاد</button>
             <span  id="addfolderresultmsg"></span>
 
           </div>
         <!--  -->
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">فهرست‌های من</h5>
-        </div>
-        <div class="modal-body">
-
         
+          <h6 class="modal-title" style="padding: 20px;" id="exampleModalLabel">فهرست‌های من</h6>
           <ul id="action-list">
             <?php foreach ($folders as $folder) : ?>
               <li onclick="removeFol(this)" data-folder-id="<?= $folder->id ?>" class="item">
@@ -71,7 +68,6 @@
             <?php endforeach; ?>
           </ul>
 
-        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
         </div>
@@ -87,41 +83,42 @@
           <h5 class="modal-title" id="exampleModalLabel">ایجاد فعالیت جدید</h5>
         </div>
         <div class="modal-body">
-          <input type="text" class="form-control" id="tasknameinput" placeholder="نام فعالیت را اینجا وارد کنید.."></br>
-          <div class="form-floating">
-            <textarea class="form-control" placeholder="توضیحات" id="taskdescinput" style="height: 100px"></textarea>
-            <label for="floatingTextarea2">توضیحات</label>
-          </div></br> 
           <div class="row">
+            <div class="col-9"><input type="text" class="form-control mb-3" id="tasknameinput" autocomplete="off" placeholder="نام فعالیت. مثال: پیاده روی"></div>
             <div class="col">
-            <span>انتخاب فهرست:</span>
-              <select class="form-select" id="selectfolderinput" aria-label="Default select example">
+            <input class="form-check-input mb-3" style="float:right !important;" type="checkbox" value="" id="isimportantinput">
+            <label class="form-check-label" style="float:right !important;" for="isimportantinput">
+              &nbsp;ستاره دار
+            </label>
+            </div>
+          </div>
+          <div class="form-floating">
+            <textarea class="form-control" id="taskdescinput" style="height: 80px; text-align:right; "></textarea>
+            <label for="floatingTextarea2" >توضیح بیشتر...</label>
+          </div>
+          <div class="row mb-3" style="margin-top: 17px;">
+            <div class="col">
+            <!-- <label for="selectfolderinput">انتخاب فهرست:</label> -->
+              <select class="form-select " id="selectfolderinput" autocomplete="off">
                 <option value="0">بدون فهرست</option>
               <?php foreach ($folders as $folder) : ?>
                 <option value="<?= $folder->id ?>" ><?= $folder->name ?></option> 
                 1
               <?php endforeach ?>
-
               </select>
             </div>
             <div class="col">
-              <span>مهلت:</span>
-              <input type="date" id="deadlineinput" class="form-control" >
+              <!-- <label for="deadlineinput">مهلت:</label> -->
+              <input  id="deadlineinput" placeholder="مهلت" class="form-control" data-jdp >
             </div>  
           </div>   
-          </br>
-            <input class="form-check-input" class="float:right !important;" type="checkbox" value="" id="isimportantinput">&nbsp;
-            <label class="form-check-label" class="float:right !important;" for="isimportantinput">
-              علامت زدن به عنوان مهم
-            </label>
-
             <span  id="addtaskresultmsg"></span>
         
         </div>
 
         <div class="modal-footer">
+          <button type="button" class="btn btn-success col-4" id="addtaskbtn">ایجاد</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-          <button type="button" class="btn btn-success" id="addtaskbtn">افزودن</button>
         </div>
       </div>
     </div>
@@ -209,7 +206,7 @@
         
         <div class="addfolder" data-bs-toggle="modal" data-bs-target="#exampleModal2">
           <!-- <input class="form-check-input" name="task" type="checkbox" id="item-1" checked disabled /> -->  
-          <i class="fa-solid fa-gear"></i>
+          <i class="fa-solid fa-folder-plus"></i>
           <span class="label-text">مدیریت فهرست‌ها</span>
         </div>
 
@@ -255,6 +252,7 @@
               <span class="label-text"> <?= $task->title ?> </span>
               <span style="font-size: 12px; color: #154c79; margin-right:20px"> <?= $task->description ?> </span>
               <input class="form-check-input" style="float: left; margin-right:10px; cursor: pointer;" name="task" title="کامل کردن" type="checkbox" id="item-1" onclick="toggletask(this)" data-task-id="<?= $task->id ?>" <?php if($task->isdone):?>checked<?php endif; ?>/>   
+              <?php if(!empty($task->deadline)):?><div style="background-color:#89202a; padding:0px 5px; border-radius:11px; float: left;  margin-left:20px;"><span style="font-size: 12px; color: white;  "><?= $task->deadline ?></span></div><?php endif; ?>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
@@ -456,6 +454,8 @@
         });
       });
     });
+    jalaliDatepicker.startWatch({zIndex	:1100});
+
   </script>
 
 </body>

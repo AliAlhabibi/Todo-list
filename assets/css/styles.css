@@ -105,9 +105,6 @@ ul li a {
   color: #89202a;
   margin: 0px 10px;
 }
-.activelink span, .activelink i{
-  color: #12a31e !important;
-}
 .item {
   margin-bottom: 5px;
   padding: 6px 0px;
