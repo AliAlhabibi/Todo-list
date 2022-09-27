@@ -26,7 +26,7 @@
           </div>
           <div class="input-field">
             <i class="fas fa-lock"></i>
-            <input type="password" name="lpassword" autocomplete="current-password" placeholder="رمز عبور" id="id_password" required="yes">
+            <input type="password" name="lpassword" autocomplete="current-password" placeholder="گذرواژه" id="id_password" required="yes">
             <i class="far fa-eye" id="togglePassword" style="cursor: pointer;"></i>
           </div>
 

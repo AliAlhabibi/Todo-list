@@ -70,11 +70,13 @@ function getTasks($status){
     elseif($status == 'folder'){
         if(hasAccess($_GET['fid'],'f')){
             $folder = $_GET['fid'];
-            $condition = "AND folder_id = $folder";
+            $condition = "AND folder_id = $folder and isdone = 0";
             
         }else{
         diePage('error: invalid folder');
         }
+    }elseif($status == 'all'){
+        $condition = '';
     }else{
         diePage('error: invalid status');
     }
@@ -160,4 +162,27 @@ function hasAccess($id,$operation){
         return $record? true : false;
         die;
     }
+}
+
+function updatePassword($newpass){
+    global $conn;
+    $current_user_id = getUserData($_SESSION['loginuser'])->id;
+    $passhash = password_hash($newpass, PASSWORD_BCRYPT);
+    $sql = "update users set password= :pass where id=$current_user_id;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':pass'=>$passhash]);
+    $records = $stmt->fetchAll(pdo::FETCH_OBJ);
+    return $records;
+
+}
+
+function updateName($newname){
+    global $conn;
+    $current_user_id = getUserData($_SESSION['loginuser'])->id;
+    $sql = "update users set name= :name where id=$current_user_id;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':name'=>$newname]);
+    $records = $stmt->fetchAll(pdo::FETCH_OBJ);
+    return $records;
+
 }

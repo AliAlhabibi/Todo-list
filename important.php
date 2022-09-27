@@ -1,8 +1,6 @@
 <?php
 include "bootstrap/init.php";
-if(isset($_GET['logout'])){
-    logout();
-}
+
 
 // check if user is loggged in
 if(!isLoggedIn()){

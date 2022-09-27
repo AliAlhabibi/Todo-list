@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>task manager</title>
+  <title>پروفایل کاربری - <?= getUserData($_SESSION['loginuser'])->name ?></title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
@@ -65,8 +65,8 @@
             <?php foreach ($folders as $folder) : ?>
               <li onclick="removeFol(this)" data-folder-id="<?= $folder->id ?>" class="item">
                 <i class="fa-regular fa-folder feather"></i>
-                <span> <?= $folder->name ?> </span>
-                  <i style="position:absolute; left:20px; cursor:pointer" class="fa-solid fa-trash "></i>
+                <span><?= $folder->name ?></span>
+                  <i style="position:absolute; left:20px; cursor:pointer;" class="fa-solid fa-trash "></i>
               </li>
             <?php endforeach; ?>
           </ul>
@@ -96,8 +96,9 @@
             <div class="col">
             <span>انتخاب فهرست:</span>
               <select class="form-select" id="selectfolderinput" aria-label="Default select example">
+                <option value="0">بدون فهرست</option>
               <?php foreach ($folders as $folder) : ?>
-                <option value="<?= $folder->id ?>"><?= $folder->name ?></option> 
+                <option value="<?= $folder->id ?>" ><?= $folder->name ?></option> 
                 1
               <?php endforeach ?>
 
@@ -152,7 +153,7 @@
       <!-- left content starts -->
       <div class="left-content">
         <ul class="menu-list">
-            <li class="menu-item">
+            <li class="menu-item ">
               <a style="text-decoration:none; color:black;" href="<?= goUrl("index.php") ?>">
                 <i class="fa-solid fa-calendar-day feather"></i>
                 <span> همه </span>
@@ -220,7 +221,7 @@
     <!-- left bar ends -->
     <!-- page content starts -->
     <div class="page-content">
-      <div class="header">فعالیت های <?php print_r($pagetitle) ?></div>
+      <div class="header"><i class="fa-solid fa-bars"></i> فعالیت های <?php print_r($pagetitle) ?></div>
 
       <!-- contnet categories starts
 
@@ -253,8 +254,7 @@
               <?php if($task->isimportant): ?><i style="font-size: 45px; position:absolute; right:0; margin-top:-12px; opacity:15%; color:#89202a " class="fa-solid fa-star"></i><?php endif; ?>
               <span class="label-text"> <?= $task->title ?> </span>
               <span style="font-size: 12px; color: #154c79; margin-right:20px"> <?= $task->description ?> </span>
-              <input class="form-check-input" style="float: left; margin-right:10px;   cursor: pointer;" name="task" type="checkbox" id="item-1" checked onclick="toggletask(this)" data-task-id="<?= $task->id ?>" />   
-              <?php if(!empty($task->deadline)) : ?><span class="tag waiting" style="float: left;"><?= substr($task->deadline,0,10) ?></span><?php endif; ?>
+              <input class="form-check-input" style="float: left; margin-right:10px; cursor: pointer;" name="task" title="کامل کردن" type="checkbox" id="item-1" onclick="toggletask(this)" data-task-id="<?= $task->id ?>" <?php if($task->isdone):?>checked<?php endif; ?>/>   
             </div>
           <?php endforeach; ?>
         <?php else: ?>

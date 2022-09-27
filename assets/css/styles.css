@@ -105,6 +105,9 @@ ul li a {
   color: #89202a;
   margin: 0px 10px;
 }
+.activelink span, .activelink i{
+  color: #12a31e !important;
+}
 .item {
   margin-bottom: 5px;
   padding: 6px 0px;
@@ -119,6 +122,7 @@ ul li a {
   opacity: 0.8;
   transition: 0.4s;
 }
+
 
 .item2 {
   color: var(--main-color);
@@ -243,7 +247,8 @@ ul li a {
   /* font-weight: 500;*/
   background-color: #f0fffe;
   border-radius: 5px;
-  border-right: 3px solid #009e90;
+  /* border-right: 3px solid #009e90; */
+  border-bottom: 1px solid #6767f5;
   cursor: default;
   overflow: hidden;
 }
@@ -420,14 +425,16 @@ ul li a {
 .task-box {
   position: relative;
   border-radius: 12px;
-  width: 100%;
-  margin: 20px 0;
-  padding: 16px;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px 0px rgba(235, 235, 235, 1);
+  width: 95%;
+  margin: 15px auto;
+  padding: 20px;
+  cursor: default;
+  box-shadow: 2px 2px 3px 2px rgba(235, 235, 235, 1);
+  text-align: center;
 }
 .task-box:hover {
-  transform: scale(1.02);
+  /* transform: scale(1.02); */
+  opacity: 80%;
 }
 .time {
   margin-bottom: 6px;
@@ -446,9 +453,9 @@ body,
 }
 
 .task-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  opacity: 0.6;
+  opacity: 1;
 }
 .yellow {
   background-color: var(--box-color);
@@ -457,8 +464,9 @@ body,
   background-color: var(--box-color-2);
 }
 .red {
-  background-color: var(--box-color-3);
-}
+  background-color:rgba(64, 83, 206, 1);
+  color: rgba(255, 206, 196, 1);
+  }
 .green {
   background-color: var(--box-color-4);
 }
