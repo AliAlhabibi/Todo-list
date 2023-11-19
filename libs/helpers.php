@@ -13,7 +13,7 @@ function isAjaxRequest(){
 }
 
 function goUrl($addr){
-    return 'http://localhost/taskmanager-project/'. $addr;
+    return 'http://localhost/todo-list/'. $addr;
 
 }
 function getDayOrNight(){
