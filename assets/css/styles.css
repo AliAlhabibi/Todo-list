@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'iransans';
-  src: url(../font/IRANSans_FaNum_.ttf);
+  font-family: 'vazir';
+  src: url(../font/Vazirmatn-Regular.woff2);
 }
 * {
   box-sizing: border-box;
@@ -32,7 +32,7 @@
 body {
   margin: 0;
   justify-content: center;
-  font-family: iransans !important;
+  font-family: vazir !important;
   flex-direction: column;
   overflow: auto;
   width: 100%;

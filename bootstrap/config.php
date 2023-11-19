@@ -1,4 +1,7 @@
 <?php
+
+// Database Ceredentials
+
 // casting array to object with ()parantheses before it
 $database_config = (object)[
     'host' => 'localhost',
